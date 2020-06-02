@@ -21,11 +21,11 @@ function App() {
   return (
     <div>
       <h2>Todo List</h2>
-      <p>
+      <ul>
         {todoItems.map((eachTodo) => {
           return <li>{eachTodo}</li>;
         })}
-      </p>
+      </ul>
       <form>
         <input onChange={inputChange} value={input} name="list"></input>
         <br />
