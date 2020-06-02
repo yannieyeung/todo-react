@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { hot } from "react-hot-loader";
+import TodoList from "./todoList";
 
 function App() {
   const [todoItems, setItem] = useState([]);
@@ -16,21 +17,38 @@ function App() {
       return [...prevItem, input];
     });
     event.preventDefault();
+    setInput("");
+  }
+  function deleteItem(id) {
+    console.log(id);
+    setItem((prevItemArray) => {
+      return prevItemArray.filter((item, index) => {
+        return index !== id;
+      });
+    });
   }
 
   return (
     <div>
       <h2>Todo List</h2>
-      <ul>
-        {todoItems.map((eachTodo) => {
-          return <li>{eachTodo}</li>;
-        })}
-      </ul>
+
       <form>
         <input onChange={inputChange} value={input} name="list"></input>
         <br />
         <button onClick={toAdd}>Add</button>
       </form>
+      <ul>
+        {todoItems.map((eachTodo, index) => {
+          return (
+            <TodoList
+              key={index}
+              id={index}
+              item={eachTodo}
+              onDelete={deleteItem}
+            />
+          );
+        })}
+      </ul>
     </div>
   );
 }
